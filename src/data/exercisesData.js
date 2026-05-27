@@ -1,0 +1,20 @@
+export const exercisesList = [
+  { name: 'הליכה', duration: 30, calories: 150, icon: '🚶' },
+  { name: 'ריצה', duration: 20, calories: 250, icon: '🏃' },
+  { name: 'אופניים', duration: 30, calories: 200, icon: '🚴' },
+  { name: 'שחייה', duration: 30, calories: 300, icon: '🏊' },
+  { name: 'אימון כוח', duration: 45, calories: 200, icon: '💪' },
+  { name: 'יוגה', duration: 45, calories: 150, icon: '🧘' },
+  { name: 'פילאטיס', duration: 45, calories: 180, icon: '🤸' },
+  { name: 'HIIT', duration: 20, calories: 250, icon: '⏱️' },
+  { name: 'קיקבוקס', duration: 45, calories: 400, icon: '🥊' },
+  { name: 'קפיצה בחבל', duration: 15, calories: 200, icon: '🪢' },
+  { name: 'ריקוד', duration: 40, calories: 250, icon: '💃' },
+  { name: 'אליפטיקל', duration: 30, calories: 220, icon: '👣' },
+  { name: 'חתירה', duration: 20, calories: 180, icon: '🚣' },
+  { name: 'טיפוס/הייקינג', duration: 60, calories: 400, icon: '🧗' },
+  { name: 'כדורגל', duration: 45, calories: 350, icon: '⚽' },
+  { name: 'כדורסל', duration: 45, calories: 350, icon: '🏀' },
+  { name: 'טניס', duration: 45, calories: 300, icon: '🎾' },
+  { name: 'ספינינג', duration: 45, calories: 400, icon: '🚲' }
+];
