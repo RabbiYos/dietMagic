@@ -4,6 +4,7 @@ import { useAuth } from './hooks/useAuth';
 import Navigation from './components/Navigation';
 import AuthScreen from './components/AuthScreen';
 import { getWeeklyData } from './utils/weeklyUtils';
+import { useTranslation } from 'react-i18next';
 
 // Tabs
 import DashboardTab from './components/DashboardTab';
@@ -16,6 +17,10 @@ import HistoryTab from './components/HistoryTab';
 import { DEFAULT_TAB } from './constants/tabConfig';
 
 function App() {
+  // internationalization
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === 'he';
+
   const { user, loading } = useAuth();
 
   const [activeTab, setActiveTab] = useState(DEFAULT_TAB);
@@ -126,7 +131,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50" dir="rtl">
+    <div className="min-h-screen bg-gray-50" dir={isRTL ? 'rtl' : 'ltr'}>
       <Navigation activeTab={activeTab} setActiveTab={setActiveTab} user={user} />
       <main className="pb-20">
         {renderTabContent()}

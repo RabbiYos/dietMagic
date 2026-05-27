@@ -1,0 +1,31 @@
+{
+  "auth": {
+    "login": "Sign In",
+    "register": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "fullName": "Full Name",
+    "continueWithGoogle": "Continue with Google",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "signUp": "Sign Up",
+    "signIn": "Sign In"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "fasting": "Fasting",
+    "weight": "Weight",
+    "steps": "Steps",
+    "water": "Water",
+    "exercise": "Exercise",
+    "history": "History"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "loading": "Loading...",
+    "hello": "Hello"
+  }
+}
