@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useLocalStorage } from './hooks/useLocalStorage';
+import { useAuth } from './hooks/useAuth';
 import Navigation from './components/Navigation';
+import AuthScreen from './components/AuthScreen';
 import { getWeeklyData } from './utils/weeklyUtils';
 
 // Tabs
@@ -14,6 +16,8 @@ import HistoryTab from './components/HistoryTab';
 import { DEFAULT_TAB } from './constants/tabConfig';
 
 function App() {
+  const { user, loading } = useAuth();
+
   const [activeTab, setActiveTab] = useState(DEFAULT_TAB);
 
   const [fastingRecords, setFastingRecords] = useLocalStorage('fastingRecords', []);
@@ -29,15 +33,24 @@ function App() {
   const [waterGoal, setWaterGoal] = useLocalStorage('waterGoal', 3600);
 
   const [exerciseRecords, setExerciseRecords] = useLocalStorage('exerciseRecords', []);
-  
-  const weeklyData = getWeeklyData({
-  fastingRecords,
-  weightRecords,
-  stepsRecords,
-  waterRecords,
-  exerciseRecords
-});
 
+  const weeklyData = getWeeklyData({
+    fastingRecords,
+    weightRecords,
+    stepsRecords,
+    waterRecords,
+    exerciseRecords
+  });
+
+  // Loading spinner
+  if (loading) return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+    </div>
+  );
+
+  // Not logged in → show auth screen
+  if (!user) return <AuthScreen />;
 
   const renderTabContent = () => {
     switch (activeTab) {
@@ -49,13 +62,9 @@ function App() {
             stepsRecords={stepsRecords}
             waterRecords={waterRecords}
             exerciseRecords={exerciseRecords}
-            height={height}
-            targetWeight={targetWeight}
-            waterGoal={waterGoal}
             weeklyData={weeklyData}
           />
         );
-
       case 'fasting':
         return (
           <FastingTab
@@ -67,7 +76,6 @@ function App() {
             setFastingStart={setFastingStart}
           />
         );
-
       case 'weight':
         return (
           <WeightTab
@@ -79,7 +87,6 @@ function App() {
             setTargetWeight={setTargetWeight}
           />
         );
-
       case 'steps':
         return (
           <StepsTab
@@ -87,7 +94,6 @@ function App() {
             setStepsRecords={setStepsRecords}
           />
         );
-
       case 'water':
         return (
           <WaterTab
@@ -97,7 +103,6 @@ function App() {
             setWaterGoal={setWaterGoal}
           />
         );
-
       case 'exercise':
         return (
           <ExerciseTab
@@ -105,7 +110,6 @@ function App() {
             setExerciseRecords={setExerciseRecords}
           />
         );
-
       case 'history':
         return (
           <HistoryTab
@@ -116,27 +120,17 @@ function App() {
             exerciseRecords={exerciseRecords}
           />
         );
-
       default:
         return null;
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4" dir="rtl">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-6">
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">
-            The Success Scale
-          </h1>
-        </div>
-
-        <Navigation activeTab={activeTab} setActiveTab={setActiveTab} />
-
-        <div className="bg-white rounded-lg shadow-lg p-6">
-          {renderTabContent()}
-        </div>
-      </div>
+    <div className="min-h-screen bg-gray-50" dir="rtl">
+      <Navigation activeTab={activeTab} setActiveTab={setActiveTab} user={user} />
+      <main className="pb-20">
+        {renderTabContent()}
+      </main>
     </div>
   );
 }
